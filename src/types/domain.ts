@@ -57,6 +57,10 @@ export interface PipelineRecord {
   owner: string;
   notes: string | null;
   details: PipelineDetails;
+  // Stable id from an external integration (e.g. the Calendly-fed Apps
+  // Script), used to upsert without duplicating. Null for records created
+  // directly in ShaneOS.
+  external_id: string | null;
   created_at: string;
   updated_at: string;
 }
