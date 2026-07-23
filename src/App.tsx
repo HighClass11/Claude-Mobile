@@ -5,6 +5,7 @@ import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import LoginPage from "@/pages/auth/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
 import PipelinePage from "@/pages/PipelinePage";
+import PipelineDetailPage from "@/pages/PipelineDetailPage";
 import AppointmentsPage from "@/pages/AppointmentsPage";
 import WaitingOnPage from "@/pages/WaitingOnPage";
 import RevenuePage from "@/pages/RevenuePage";
@@ -24,6 +25,7 @@ function App() {
         <Route element={<AppShell />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/pipeline" element={<PipelinePage />} />
+          <Route path="/pipeline/:id" element={<PipelineDetailPage />} />
           <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/waiting-on" element={<WaitingOnPage />} />
           <Route path="/revenue" element={<RevenuePage />} />

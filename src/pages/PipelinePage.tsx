@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { AlertCircle, MoreVertical, Plus } from "lucide-react";
 
 import { usePipeline } from "@/hooks/entities";
@@ -113,11 +114,13 @@ function PipelineCard({
   onDelete: () => void;
 }) {
   const missingNextAction = !record.next_action?.trim();
+  const navigate = useNavigate();
 
   return (
     <div
+      onClick={() => navigate(`/pipeline/${record.id}`)}
       className={
-        "rounded-xl border bg-card p-4 shadow-sm " +
+        "cursor-pointer rounded-xl border bg-card p-4 shadow-sm transition-colors hover:bg-secondary/40 " +
         (missingNextAction ? "border-destructive/50 bg-destructive/5" : "border-border")
       }
     >
@@ -136,7 +139,7 @@ function PipelineCard({
             </p>
           )}
         </div>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2" onClick={(e) => e.stopPropagation()}>
           {record.expected_revenue ? <Badge variant="revenue">${record.expected_revenue.toLocaleString()}</Badge> : null}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

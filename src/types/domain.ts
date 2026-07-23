@@ -37,6 +37,11 @@ export const PIPELINE_STAGES: PipelineStage[] = [
   "Client",
 ];
 
+// Free-form per-stage tracking data. Section keys match PIPELINE_DETAIL_SECTIONS
+// in src/components/pipeline/detailSections.ts; every field is a plain string
+// so the shape can grow without a schema migration.
+export type PipelineDetails = Record<string, Record<string, string>>;
+
 export interface PipelineRecord {
   id: string;
   owner_user_id: string;
@@ -51,6 +56,7 @@ export interface PipelineRecord {
   expected_revenue: number | null;
   owner: string;
   notes: string | null;
+  details: PipelineDetails;
   created_at: string;
   updated_at: string;
 }
