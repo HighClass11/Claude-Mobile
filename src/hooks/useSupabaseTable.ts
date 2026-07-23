@@ -21,6 +21,12 @@ export function useSupabaseTable<Row, InsertRow, UpdateRow>(
   const [data, setData] = React.useState<Row[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
+  // Supabase reuses the channel object when the topic string matches, so two
+  // hook instances for the same table (e.g. the dashboard and the notifications
+  // bell both mounted at once) must not share a channel name — otherwise the
+  // second subscribe attempt throws trying to add a listener to an
+  // already-joined channel. A per-instance id keeps every subscription unique.
+  const instanceId = React.useRef(Math.random().toString(36).slice(2)).current;
 
   const refresh = React.useCallback(async () => {
     if (!user) {
@@ -48,7 +54,7 @@ export function useSupabaseTable<Row, InsertRow, UpdateRow>(
   React.useEffect(() => {
     if (!user) return;
     const channel = db
-      .channel(`realtime:${table}:${user.id}`)
+      .channel(`realtime:${table}:${user.id}:${instanceId}`)
       .on("postgres_changes", { event: "*", schema: "public", table }, () => refresh())
       .subscribe();
     return () => {
