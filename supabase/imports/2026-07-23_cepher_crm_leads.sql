@@ -1,18 +1,12 @@
 -- One-time import of the "Cepher CRM Leads" Google Sheet (6 contacts) into
 -- ShaneOS's pipeline_records + matching appointments.
 --
--- IMPORTANT: replace the email address below with the exact email you use to
--- log into ShaneOS, BEFORE running this. The SQL Editor runs as an admin role
--- with no logged-in user, so owner_user_id can't default to auth.uid() here —
--- it has to be looked up explicitly, or every row would violate the
--- not-null constraint.
---
 -- Run this AFTER 0002_pipeline_contact_fields.sql has been applied (it adds
 -- the phone/email columns this script writes to).
 
 do $$
 declare
-  me uuid := (select id from auth.users where email = 'REPLACE_WITH_YOUR_LOGIN_EMAIL' limit 1);
+  me uuid := (select id from auth.users where email = 'shane@cepherwealth.com' limit 1);
 begin
   if me is null then
     raise exception 'No auth user found for that email — check the email address at the top of this script.';
