@@ -48,6 +48,8 @@ export default function PipelinePage() {
       name: values.name,
       stage: values.stage,
       lead_source: values.lead_source || null,
+      phone: values.phone || null,
+      email: values.email || null,
       next_action: values.next_action || null,
       due_date: values.due_date || null,
       expected_revenue: values.expected_revenue ? Number(values.expected_revenue) : null,
@@ -128,6 +130,11 @@ function PipelineCard({
           <p className="mt-1 text-xs text-muted-foreground">
             {record.lead_source || "No lead source"} · Owner: {record.owner}
           </p>
+          {(record.phone || record.email) && (
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {[record.phone, record.email].filter(Boolean).join(" · ")}
+            </p>
+          )}
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {record.expected_revenue ? <Badge variant="revenue">${record.expected_revenue.toLocaleString()}</Badge> : null}

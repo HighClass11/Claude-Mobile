@@ -19,6 +19,8 @@ export interface PipelineFormValues {
   name: string;
   stage: PipelineRecord["stage"];
   lead_source: string;
+  phone: string;
+  email: string;
   next_action: string;
   due_date: string;
   expected_revenue: string;
@@ -30,6 +32,8 @@ const emptyForm: PipelineFormValues = {
   name: "",
   stage: "New Lead",
   lead_source: "",
+  phone: "",
+  email: "",
   next_action: "",
   due_date: "",
   expected_revenue: "",
@@ -59,6 +63,8 @@ export function PipelineRecordDialog({
               name: initial.name,
               stage: initial.stage,
               lead_source: initial.lead_source ?? "",
+              phone: initial.phone ?? "",
+              email: initial.email ?? "",
               next_action: initial.next_action ?? "",
               due_date: initial.due_date ?? "",
               expected_revenue: initial.expected_revenue?.toString() ?? "",
@@ -121,6 +127,26 @@ export function PipelineRecordDialog({
                 id="lead_source"
                 value={values.lead_source}
                 onChange={(e) => setValues((v) => ({ ...v, lead_source: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="phone">Phone</Label>
+              <Input
+                id="phone"
+                value={values.phone}
+                onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={values.email}
+                onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
               />
             </div>
           </div>

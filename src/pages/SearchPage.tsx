@@ -43,7 +43,7 @@ export default function SearchPage() {
     const out: SearchResult[] = [];
 
     for (const r of pipeline.data) {
-      if (matches(query, r.name, r.notes, r.next_action, r.lead_source)) {
+      if (matches(query, r.name, r.notes, r.next_action, r.lead_source, r.phone, r.email)) {
         out.push({ id: r.id, type: "Client", title: r.name, subtitle: r.stage, route: "/pipeline" });
       }
     }

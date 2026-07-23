@@ -43,6 +43,8 @@ export interface PipelineRecord {
   name: string;
   stage: PipelineStage;
   lead_source: string | null;
+  phone: string | null;
+  email: string | null;
   last_meaningful_interaction: string | null;
   next_action: string | null;
   due_date: string | null;
